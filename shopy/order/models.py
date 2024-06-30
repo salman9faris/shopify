@@ -2,6 +2,7 @@ from datetime import timezone
 from django.db import models
 from product.models import Product
 from cart.models import Cart
+from customers.models import Address, Customer
 
 # Create your models here.
 order_status=[
@@ -37,14 +38,10 @@ logistic_partner=[
 
  ]
 
-
-
-
     
 class Order(models.Model): 
     id = models.AutoField(primary_key=True)
-    customer_name=models.CharField(max_length=256)
-    customer_address=models.CharField(max_length=256)
+    customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
     total_price=models.IntegerField()
     order_status=models.CharField(choices=order_status,default="ORDERED",max_length=80)
     Payment_method=models.CharField(choices=Payment_method,max_length=80)
@@ -59,6 +56,7 @@ class Order(models.Model):
 
 class Ordereditem(models.Model):
     id = models.AutoField(primary_key=True)
+    
     item=models.ForeignKey(Product,on_delete=models.DO_NOTHING)
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     price=models.PositiveIntegerField()
@@ -67,8 +65,9 @@ class Ordereditem(models.Model):
 
 class shippingaddress(models.Model):
     id=models.AutoField(primary_key=True)
+    customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
-    address=models.CharField(max_length=200,null=True)
+    address=models.ForeignKey(Address,on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.address

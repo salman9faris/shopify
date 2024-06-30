@@ -1,9 +1,13 @@
 from django.contrib import admin
-from .models import customer
+from .models import Customer,Address
 
-class customerdetails(admin.ModelAdmin):
-    list_display=("id","user","f_name","mobile_number","email","address")
+class Customerdetails(admin.ModelAdmin):
+    list_display=("id","user","f_name","mobile_number","email")
+
+class Customeraddress(admin.ModelAdmin):
+    list_display=("id","customer","flat_no","area","district","state","country","zip_code")
     
 
 # Register your models here.
-admin.site.register(customer,customerdetails)
+admin.site.register(Customer,Customerdetails)
+admin.site.register(Address,Customeraddress)
