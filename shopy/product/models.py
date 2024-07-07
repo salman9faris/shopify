@@ -26,6 +26,8 @@ class Product(models.Model):
     unit=models.ForeignKey(Unit,max_length=256,on_delete=models.CASCADE)
     max_quantity=models.CharField(max_length=256)
     thumbnail=models.CharField(max_length=256)
+    image=models.ImageField(upload_to="product", max_length=400,blank=True)
+    
    
    
 

@@ -1,0 +1,10 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: aqua;
+    font-size: 1.6rem;
+    background-color: var(--white);
+    color: var(--black);
+    font-weight: 400;
+    font-style: normal;
+  }
