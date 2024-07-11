@@ -1,0 +1,61 @@
+{% extends "top_bottom_bar.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Basic styling for demonstration */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .cart {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .item img {
+            max-width: 80px;
+            margin-right: 10px;
+        }
+        .item-details {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="cart">
+        <h2>User profile</h2>
+            <div class="item">
+                <div class="item-details">
+                    <span> {{userprofile.f_name}} {{userprofile.l_name}}</span><br>
+                    <span>{{userprofile.mobile_number}}</span><br>
+                    <span>{{userprofile.email}}</span><br>
+                </div>
+            </div>
+            {% for address in addresses %}
+            <div class="item-details">
+                <span> {{address.flat_no}} {{userprofile.l_name}}</span><br>
+                <span>{{address.street}}</span><br>
+                <span>{{address.state}}</span><br>
+            </div>
+            <div><p>
+                   {% endfor %}
+                
+                </div>     
+   </div>
+</div>
+
+{% endblock content %}

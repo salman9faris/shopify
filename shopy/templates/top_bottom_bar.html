@@ -37,22 +37,20 @@
                 <li class="nav-item active">
                    <a class="nav-link" href="{% url 'homepage' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
-               <li class="nav-item dropdown">
-                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
-                   <ul class="dropdown-menu">
-                      <li><a href="{% url 'aboutpage' %}">About</a></li>
-                      <li><a href="testimonial.html">Testimonial</a></li>
-                   </ul>
-                </li>
-                <li class="nav-item">
-                   <a class="nav-link" href="{% url 'allproduct' %}">Products</a>
-                </li>
+              
+              
                 <li class="nav-item">
                    <a class="nav-link" href="{% url 'blogpage' %}">Blog</a>
                 </li>
                 <li class="nav-item">
                    <a class="nav-link" href="{% url 'contactpage' %}">Contact</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'orderpage' %}">Order</a>
+               </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'aboutpage' %}">About</a>
+               </li>
                 <li class="nav-item">
                    <a class="nav-link" href="{% url 'cartpage' %}">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -109,9 +107,11 @@
                       </svg>
                    </a>
                 </li>
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                </svg>
                 <form class="form-inline">
                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                   <i class="fa fa-search" aria-hidden="true"></i>
+                   <i class="fa fa-user" aria-hidden="true"></i>
                    </button>
                 </form>
              </ul>

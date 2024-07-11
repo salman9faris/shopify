@@ -56,7 +56,6 @@ class Order(models.Model):
 
 class Ordereditem(models.Model):
     id = models.AutoField(primary_key=True)
-    
     item=models.ForeignKey(Product,on_delete=models.DO_NOTHING)
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     price=models.PositiveIntegerField()

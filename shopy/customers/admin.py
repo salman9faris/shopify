@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Customer,Address
 
 class Customerdetails(admin.ModelAdmin):
-    list_display=("id","user","f_name","mobile_number","email")
+    list_display=("id","customer","f_name","mobile_number","email")
 
 class Customeraddress(admin.ModelAdmin):
     list_display=("id","customer","flat_no","area","district","state","country","zip_code")
