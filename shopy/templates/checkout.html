@@ -20,15 +20,15 @@
 	<!-- fontawesome -->
 	<link rel="stylesheet" href="{% static 'asset/css/all.min.css' %}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="{% static 'asset/bootstrap/css/bootstrap.min.css' %}">
+	
 	<!-- owl carousel -->
-	<link rel="stylesheet" href="{% static 'asset/css/owl.carousel.css' %}">
+
 	<!-- magnific popup -->
-	<link rel="stylesheet" href="{% static 'asset/css/magnific-popup.css' %}">
+
 	<!-- animate css -->
-	<link rel="stylesheet" href="{% static 'asset/css/animate.css' %}">
+	
 	<!-- mean menu css -->
-	<link rel="stylesheet" href="{% static 'asset/css/meanmenu.min.css' %}">
+	
 	<!-- main style -->
 	<link rel="stylesheet" href="{% static 'asset/css/main.css' %}">
 	<!-- responsive -->
@@ -36,20 +36,19 @@
 
 </head>
 <body>
-
 	<section class="inner_page_head">
          <div class="container_fuild">
             <div class="row">
                <div class="col-md-12">
                   <div class="full">
-                     <h3 style="color:white;">Blog List</h3>
+                     <h3 style="color:white;">Checkout</h3>
                   </div>
                </div>
             </div>
          </div>
       </section>
 	<!-- check out section -->
-	<div class="checkout-section mt-150 mb-150">
+	<div class="checkout-section mt-80 mb-80">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8">
@@ -59,22 +58,51 @@
 						    <div class="card-header" id="headingOne">
 						      <h5 class="mb-0">
 						        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						          Billing Address
+						          Shipping Address
 						        </button>
 						      </h5>
 						    </div>
 
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
-						        <div class="billing-address-form">
-						        	<form action="index.html">
-						        		<p><input type="text" placeholder="Name"></p>
-						        		<p><input type="email" placeholder="Email"></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
-						        		<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
-						        	</form>
-						        </div>
+								
+						       {% for address in addresses %}
+							   <h6  class="mb-0">
+				
+									{{address.customer}}<br>
+									{{address.flat_no}}<br>
+									{{address.street}}<br>
+									{{address.area}} ,
+									{{address.district}}<br>
+									{{address.state}},
+									{{address.country}}<br>
+									{{address.zip_code}}
+								
+									{% endfor %}
+						      </div>
+						    </div>
+						  </div>
+						  
+
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingTwo">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						          Payment method
+						        </button>
+						      </h5>
+						    </div>
+							
+						    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						      <div class="card-body">
+																	
+								    <input type="radio" id="cod" name="PAYMENT_METHOD" value="cod">
+								    <label for="html">COD</label><br>
+								    <input type="radio" id="CARD_PAYMENT" name="PAYMENT_METHOD" value="CARD_PAYMENT">
+								    <label for="css">CARD PAYMENT</label><br>
+								    <input type="radio" id="Net_Banking" name="PAYMENT_METHOD" value="Net_Banking">
+								    <label for="javascript">Net Banking</label>
+								  
 						      </div>
 						    </div>
 						  </div>
@@ -82,39 +110,35 @@
 						    <div class="card-header" id="headingTwo">
 						      <h5 class="mb-0">
 						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						          Shipping Address
+						          coupon
 						        </button>
 						      </h5>
 						    </div>
-						    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
 						      <div class="card-body">
-						        <div class="shipping-address-form">
-						        	<p>Your shipping address form is here.</p>
-						        </div>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="card single-accordion">
-						    <div class="card-header" id="headingThree">
-						      <h5 class="mb-0">
-						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-						          Card Details
-						        </button>
-						      </h5>
-						    </div>
-						    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-						      <div class="card-body">
-						        <div class="card-details">
-						        	<p>Your card details goes here.</p>
-						        </div>
-						      </div>
-						    </div>
-						  </div>
+								{% for message in messages %}
+								{{message}}
+								{% endfor %}
+								<div class="coupon-form-wrap">
+									<form action="{% url 'checkout' %}" method="post">
+										{% csrf_token %} 
+										<p><input type="text"  name="coupon-code" placeholder="Coupon"></p>
+										<p><input type="submit"   value="Apply"></p>
+										
+									</form>	
+									<br>
+									<form action="{% url 'checkout' %}" method="post">
+										{% csrf_token %} 
+									<p><input type="submit"  class="boxed-btn" name="clear-code" value="Clear">
+										
+								</form>	
+								</div>
+							  </div>
+							</div>
 						</div>
-
+						</div>
 					</div>
 				</div>
-
 				<div class="col-lg-4">
 					<div class="order-details-wrap">
 						<table class="order-details">
@@ -125,39 +149,38 @@
 								</tr>
 							</thead>
 							<tbody class="order-details-body">
+								
+								{% for item in items %}
 								<tr>
-									<td>Product</td>
-									<td>Total</td>
+									<td>{{item.product}}</td>
+									<td>{{item.price}}</td>
 								</tr>
-								<tr>
-									<td>Strawberry</td>
-									<td>$85.00</td>
-								</tr>
-								<tr>
-									<td>Berry</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Lemon</td>
-									<td>$35.00</td>
-								</tr>
+								{% endfor %}
 							</tbody>
 							<tbody class="checkout-details">
 								<tr>
 									<td>Subtotal</td>
-									<td>$190</td>
+									<td>${{total_price}}</td>
 								</tr>
 								<tr>
 									<td>Shipping</td>
-									<td>$50</td>
+									<td>${{shipping_charge}}</td>
+								</tr>
+								<tr>
+									<td>Discount</td>
+									<td>${{discount}}</td>
 								</tr>
 								<tr>
 									<td>Total</td>
-									<td>$240</td>
+									<td><b>${{total}}</b></td>
 								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+						<br>
+						<form action="{% url 'checkout' %}" method="post">
+							{% csrf_token %} 
+						<p><input type="submit"  class="boxed-btn" name="place-order" value="place order">
+					</form>
 					</div>
 				</div>
 			</div>

@@ -5,7 +5,4 @@ def orderpage(request):
     return render(request,"orderpage.html")
 
 
-def addorder(request):
-    
-    return  redirect(request.META['HTTP_REFERER'])
 
