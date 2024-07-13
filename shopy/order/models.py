@@ -1,8 +1,9 @@
 from datetime import timezone
 from django.db import models
 from product.models import Product
-from cart.models import Cart
+from django.contrib.auth.models import User
 from customers.models import Address, Customer
+from cart.models import Cartitem
 
 
 # Create your models here.
@@ -21,11 +22,7 @@ Payment_method=[
         ("Debit/Credit card","Debit/Credit card"),  
         ("Net banking","Net Banking")
     ]
-Payment_status=[
-        ("paid","Paid"),
-        ("Not paid","Not paid"),  
-        ("Failed","Failed")
-    ]
+
 
 shipment_status=[
     ("Preparing","Preparing"),
@@ -56,21 +53,29 @@ class Order(models.Model):
 		(('Net banking'), ('Net banking')),
 		
 	) 
+
+    Payment_status=(
+        (("paid"),("Paid")),
+        (("Not paid"),("Not paid")),  
+        (("Failed"),("Failed"))
+        )
+
     
     id = models.AutoField(primary_key=True)
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
+    customer=models.ForeignKey(User,on_delete=models.CASCADE)
     total_price=models.PositiveIntegerField()
-    discount_coupon=models.ForeignKey(Coupon,on_delete=models.CASCADE,blank=True),
+    discount_coupon=models.CharField(max_length=256)
     discount_amount=models.PositiveIntegerField(default=0)
     order_status=models.CharField(choices=order_status,default="ORDERED",max_length=80)
-    Payment_method=models.CharField(choices=TagsChoices,max_length=80)
-    Payment_status=models.CharField(choices=Payment_status,max_length=80)
+    Payment_method=models.CharField(choices=TagsChoices,max_length=80,default="COD")
+    Payment_status=models.CharField(choices=Payment_status, max_length=80)
     shipment_awb=models.CharField(max_length=256,blank=True,default="")
     logistic_partner=models.CharField(choices=logistic_partner,max_length=80,blank=True)
     shipment_status=models.CharField(choices=shipment_status,max_length=80,default="Preparing")
 
-    def __str__(self):
-        return self.customer_name
+    def __str__(self) -> str:
+        return self.customer.username
+
     def final_price(self):
         return self.total_price-self.discount_amount
 
@@ -78,12 +83,13 @@ class Order(models.Model):
 
 class Ordereditem(models.Model):
     id = models.AutoField(primary_key=True)
-    item=models.ForeignKey(Product,on_delete=models.DO_NOTHING)
+    item=models.CharField(max_length=256)
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
-    
     price=models.PositiveIntegerField()
     quantity = models.PositiveIntegerField(default=1)
     date_added=models.DateTimeField(auto_now_add=True)
+
+   
 
 class shippingaddress(models.Model):
     id=models.AutoField(primary_key=True)

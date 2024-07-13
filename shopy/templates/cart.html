@@ -99,7 +99,7 @@
 						</table>
 					</div>
 				</div>
-
+{% if total_price %}
 				<div class="col-lg-4">
 					<div class="total-section">
 						<table class="total-table">
@@ -116,11 +116,11 @@
 								</tr>
 								<tr class="total-data">
 									<td><strong>Discount: </strong></td>
-									<td>$0</td>
+									<td>${{discount_amount}}</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td><b>${{total_price}}</td>
+									<td><b>${{total}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -129,7 +129,7 @@
 							<a href="{% url 'checkout' %}" class="boxed-btn black">Check Out</a>
 						</div>
 					</div>
-
+{% endif %}
 					
 				</div>
 			</div>
