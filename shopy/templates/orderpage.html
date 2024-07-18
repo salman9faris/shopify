@@ -1,30 +1,100 @@
-{% extends 'top_bottom_bar.html' %}
+{% extends "top_bottom_bar.html" %}
+{% load static %}
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Check Out</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'asset/img/favicon.png' %}">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="{% static 'asset/css/all.min.css' %}">
+	<!-- bootstrap -->
+	
+	<!-- owl carousel -->
+
+	<!-- magnific popup -->
+
+	<!-- animate css -->
+	
+	<!-- mean menu css -->
+	
+	<!-- main style -->
+	<link rel="stylesheet" href="{% static 'asset/css/main.css' %}">
+	<!-- responsive -->
+	<link rel="stylesheet" href="{% static 'asset/css/responsive.css' %}">
+
+</head>
+<body>
+	<section class="inner_page_head">
+         <div class="container_fuild">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <h3 style="color:white;">Order</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+	<!-- check out section -->
+   <br>
+  
+	<div class="col-lg-8 col-md-12">
+      <div class="cart-table-wrap">
+         <table class="cart-table">
+            <thead class="cart-table-head">
+               <tr class="table-head-row">
+                  <th class="product-image">Order id</th>
+                  <th class="product-image">discount_amount</th>
+                  <th class="product-name">total_price</th>
+                  <th class="product-price">order_status</th>
+                  <th class="product-quantity">Payment_method</th>
+                  <th class="product-total">Payment_status</th>
+                  <th class="product-total">shipment_status</th>
+                  <th class="product-total">Tracking number</th>
+                  
+               </tr>
+            </thead>
+            <tbody>
+               {% for order in orders %}
+               <tr class="table-body-row">
+                 
+                  <td class="product-name">{{order.order_id}}</td>
+                  <td class="product-price">{{order.discount_amount}}</td>
+                  <td class="product-price">{{order.total_price}}</td>
+                  <td class="product-price">{{order.order_status}}</td>
+                  <td class="product-price">{{order.Payment_method}}</td>
+                  <td class="product-price">{{order.Payment_status}}</td>
+                  <td class="product-price">{{order.shipment_status}}</td>
+                  <td class="product-price">{{order.shipment_awb}}</td>
+                  
+                  
+
+                  
+                  
+              
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <br>
+	<!-- end check out section -->
 
 
-
-<section class="inner_page_head">
-    <div class="container_fuild">
-       <div class="row">
-          <div class="col-md-12">
-             <div class="full">
-                <h3>Track your Order</h3>
-             </div>
-          </div>
-       </div>
-    </div>
- </section>
-
- <section class="why_section layout_padding">
-    <div class="container">
-       <div class="heading_container heading_center">
-          <h2>
-             
-          </h2>
-       </div>
-    </div>
-</div>
-</section> 
-
-
+	
+</body>
+</html>
 {% endblock %}

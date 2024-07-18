@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
+import random
 
 from customers.models import Address
-from order.models import Coupon, shippingcharge,Order,Ordereditem
+from order.models import Coupon, shippingcharge,Order,Ordereditem,shippingaddress
 
 from cart.models import Cartitem,Cart
 from customers.models import Customer
@@ -11,7 +12,13 @@ from product.models import Product
 
 # Create your views here.
 def orderpage(request):
-    return render(request,"orderpage.html")
+                orders=Order.objects.filter(customer=request.user).order_by('-id')
+                context={
+                "orders":orders,
+                
+                }
+                return render(request,"orderpage.html",context)
+     
 
 
 
@@ -53,7 +60,6 @@ def checkout(request):
                 else:
                         messages.error(request, "invalid coupon code")
         elif request.method=="POST" and "clear-code" in request.POST:
-                
                 cart.discount_amount=0
                 cart.discount_code=0
                 cart.total=total_price+cart.shipping_amount-cart.discount_amount
@@ -61,16 +67,31 @@ def checkout(request):
                 messages.success(request, "coupon cleared") 
 
         elif request.method=="POST" and "place-order" in request.POST:
+                user=request.user
+                orderid=random.randint(1000,9999)
+                print(orderid)
+                while Order.objects.filter(order_id=orderid):
+                       
+                       orderid=random.randint(10000,99999)
+                       print("new order id",orderid)
+                
                 neworder = Order.objects.create(
-                customer=request.user,
+                order_id=orderid,
+                customer=user,
                 total_price=cart.total,
                 discount_coupon=cart.discount_code,
                 discount_amount=cart.discount_amount)
-                cartitems=Cartitem.objects.filter(user=request.user)
+                cartitems=Cartitem.objects.filter(user=user)
                 neworder.save()  
+                address=shippingaddress.objects.create(
+                       
+                        order=neworder,
+                        address=Address.objects.get(customer=user)
+                )
+                address.save()
                 for cartitem in cartitems :
                        
-                       Ordereditem.objects.create(
+                        Ordereditem.objects.create(
                         item=cartitem.product,
                         order=neworder,
                         quantity=cartitem.quantity,

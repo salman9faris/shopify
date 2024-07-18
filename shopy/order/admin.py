@@ -2,13 +2,13 @@ from django.contrib import admin
 from order.models import Order,Ordereditem,Coupon,shippingaddress,shippingcharge
 
 class orderadmin(admin.ModelAdmin):
-    list_display=("id","customer","order_status","shipment_status","discount_coupon","discount_amount","Payment_method","total_price",)
+    list_display=("id","customer","order_id","order_status","shipment_status","discount_coupon","discount_amount","Payment_method","total_price",)
 
 class Ordereditemadmin(admin.ModelAdmin):
     list_display=("order_id","item","order","price","quantity")
 
 class shippingadmin(admin.ModelAdmin):
-    list_display=("id","customer","order","address")
+    list_display=("id","order","address")
 
 class shippingchargeadmin(admin.ModelAdmin):
     list_display=("id","shipping_charge","minimum_amount")

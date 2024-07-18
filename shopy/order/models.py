@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime, timezone
 from django.db import models
 from product.models import Product
 from django.contrib.auth.models import User
@@ -63,6 +63,7 @@ class Order(models.Model):
     
     id = models.AutoField(primary_key=True)
     customer=models.ForeignKey(User,on_delete=models.CASCADE)
+    order_id=models.CharField(max_length=50)
     total_price=models.PositiveIntegerField()
     discount_coupon=models.CharField(max_length=256)
     discount_amount=models.PositiveIntegerField(default=0)
@@ -72,6 +73,7 @@ class Order(models.Model):
     shipment_awb=models.CharField(max_length=256,blank=True,default="")
     logistic_partner=models.CharField(choices=logistic_partner,max_length=80,blank=True)
     shipment_status=models.CharField(choices=shipment_status,max_length=80,default="Preparing")
+    date_added=models.DateTimeField(auto_now_add=True,)
 
     def __str__(self) -> str:
         return self.customer.username
@@ -80,26 +82,23 @@ class Order(models.Model):
         return self.total_price-self.discount_amount
 
 
-
 class Ordereditem(models.Model):
     id = models.AutoField(primary_key=True)
     item=models.CharField(max_length=256)
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     price=models.PositiveIntegerField()
     quantity = models.PositiveIntegerField(default=1)
-    date_added=models.DateTimeField(auto_now_add=True)
+    date_added=models.DateTimeField(auto_now_add=True,)
 
    
 
 class shippingaddress(models.Model):
     id=models.AutoField(primary_key=True)
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
+
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     address=models.ForeignKey(Address,on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.address
-
+   
    
 class shippingcharge(models.Model):
     id=models.AutoField(primary_key=True)
